@@ -1,5 +1,6 @@
 "use client";
 
+import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import React, { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -9,6 +10,7 @@ import MenuItem from "./MenuItem";
 const UserMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const toggleMenu = useCallback(() => {
     setIsOpen((value: boolean) => !value);
@@ -84,7 +86,7 @@ const UserMenu: React.FC = () => {
               </>
             ) : (
               <>
-                <MenuItem label="Login" />
+                <MenuItem label="Login" onClick={loginModal.onOpen} />
                 <MenuItem label="Sign up" onClick={registerModal.onOpen} />
               </>
             )}
