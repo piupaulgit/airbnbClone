@@ -6,8 +6,14 @@ import React, { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
 
-const UserMenu: React.FC = () => {
+interface UserMenuProps {
+  currentUser?: SafeUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -74,7 +80,7 @@ const UserMenu: React.FC = () => {
         "
         >
           <div className="flex flex-col cursor-pointer">
-            {false ? (
+            {currentUser ? (
               <>
                 <MenuItem label="My trips" />
                 <MenuItem label="My favorites" />
@@ -82,7 +88,7 @@ const UserMenu: React.FC = () => {
                 <MenuItem label="My properties" />
                 <MenuItem label="Airbnb your home" />
                 <hr />
-                <MenuItem label="Logout" />
+                <MenuItem label="Logout" onClick={() => signOut()} />
               </>
             ) : (
               <>
